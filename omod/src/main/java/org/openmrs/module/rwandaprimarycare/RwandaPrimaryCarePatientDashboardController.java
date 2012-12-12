@@ -232,6 +232,41 @@ public class RwandaPrimaryCarePatientDashboardController {
 	                if (insuranceNumber != null && !insuranceNumber.trim().equals("")){
 	                    insNum = PrimaryCareUtil.newObs(patient, PrimaryCareUtil.getInsuranceNumberConcept(), registrationEncounterToday.getEncounterDatetime(), PrimaryCareBusinessLogic.getLocationLoggedIn(session));
 	                    insNum.setValueText(insuranceNumber);
+	                    
+	                    if (insuranceType == 6738) {
+							// Mutuelle
+							PatientIdentifierType Mutuelle = Context
+									.getPatientService()
+									.getPatientIdentifierTypeByName("Mutuelle");
+							if (Mutuelle != null) {
+								PatientIdentifier pi = new PatientIdentifier(
+										insuranceNumber, Mutuelle,
+										PrimaryCareWebLogic
+												.getCurrentLocation(session));
+								pi.setDateCreated(new Date());
+								pi.setCreator(Context.getAuthenticatedUser());
+								patient.addIdentifier(pi);
+								Context.getPatientService().savePatient(patient);
+							}
+						}
+						if (insuranceType == 6739) {
+							// RAMA
+							PatientIdentifierType RAMA = Context
+									.getPatientService()
+									.getPatientIdentifierTypeByName("RAMA");
+							if (RAMA != null) {
+								PatientIdentifier pi = new PatientIdentifier(
+										insuranceNumber, RAMA,
+										PrimaryCareWebLogic
+												.getCurrentLocation(session));
+								pi.setDateCreated(new Date());
+								pi.setCreator(Context.getAuthenticatedUser());
+						
+								patient.addIdentifier(pi);
+								Context.getPatientService().savePatient(patient);
+							}
+						}
+	                    
 	                }
 	    
 	                if (insNum != null)

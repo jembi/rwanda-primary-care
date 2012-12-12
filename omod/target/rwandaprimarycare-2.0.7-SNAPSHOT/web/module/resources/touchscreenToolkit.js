@@ -63,7 +63,7 @@ var messageCodes = ['touchscreen.next',
                     'touchscreen.shift',
                     'touchscreen.unknown',
                     'touchscreen.upper',
-                    'touchscreen.lower'
+                    'touchscreen.lower','touchscreen.enterValidId'
                     ];
 
 // primary care fields that require an integer value
@@ -2199,6 +2199,13 @@ TTInput.prototype = {
 	       // check for floating points numbers
 			if (this.element.value % 1 !=0 && isIntegerFieldType(this.element.getAttribute("name")))
 				return getMessage("touchscreen.enterValidValue");
+			if (this.element.getAttribute("name") == "addNationalIdentifier") {
+				var nid = this.element.value.trim();
+				if (nid.length != 16) {
+					// alert("touchscreen.enterValidId");
+					return getMessage("touchscreen.enterValidId");
+				}
+			}
 			var numValue = null;
 			if (!isNaN(this.getNumberFromString(this.element.value)))
 				numValue = this.getNumberFromString(this.element.value);

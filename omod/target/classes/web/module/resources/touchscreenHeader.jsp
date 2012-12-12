@@ -70,6 +70,7 @@
 		<c:set var="unknown"><spring:message code="rwandaprimarycare.touchscreen.unknown"/></c:set>
 		<c:set var="upper"><spring:message code="rwandaprimarycare.touchscreen.upper"/></c:set>
 		<c:set var="lower"><spring:message code="rwandaprimarycare.touchscreen.lower"/></c:set>
+		<c:set var="enterValidId"><spring:message code="rwandaprimarycare.touchscreen.enterValidId"/></c:set>
 		
 		<script type="text/javascript">
 			/* don't have jquery take over $() */
@@ -114,7 +115,8 @@
 			                    'touchscreen.shift':"${shift}",
 			                    'touchscreen.unknown':"${unknown}",
 			                    'touchscreen.upper':"${upper}",
-			                    'touchscreen.lower':"${lower}"
+			                    'touchscreen.lower':"${lower}",
+			                    'touchscreen.enterValidId':"${enterValidId}"
 			};
 		</script>
 		
