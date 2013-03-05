@@ -107,6 +107,13 @@
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
+            <dependency>
+                <groupId>org.openmrs.module</groupId>
+                <artifactId>mohappointment-api</artifactId>
+                <version>0.1.9-SNAPSHOT</version>
+                <type>jar</type>
+                <scope>provided</scope>
+            </dependency>
 		</dependencies>
 	</dependencyManagement>
 
