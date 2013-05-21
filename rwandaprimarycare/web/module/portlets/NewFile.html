@@ -1,0 +1,103 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Table</title>
+<script src="jquery-1.4.4.min.js" type="text/javascript"></script>
+<style type="text/css">
+th {
+	background-color: #ddd;
+}
+
+th td {
+	border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+	<table>
+
+		<table id="tbl">
+			<thead>
+				<tr>
+					<th>One Header</th>
+					<th>Two Header</th>
+					<th>Three Header</th>
+					<th>Four Header</th>
+					<th>Five Header</th>
+					<th>Six Header</th>
+					<th>Seven Header</th>
+					<th>Eight Header</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Value</td>
+					<td>Value</td>
+					<td>Value</td>
+					<td>Value</td>
+					<td>Value</td>
+					<td>Value</td>
+					<td>Value</td>
+					<td>Value</td>
+				</tr>
+				<tr>
+					<td>Value</td>
+					<td>Value</td>
+					<td>Value</td>
+					<td>Value</td>
+					<td>Value</td>
+					<td>Value</td>
+					<td>Value</td>
+					<td>Value</td>
+				</tr>
+			</tbody>
+		</table>
+	</table>
+	<button id="navleft">Move Left</button>
+	<button id="navright">Move Right</button>
+	<script type="text/javascript">
+		var leftColumn = 0;
+		var columnCount = 4;
+		$(document).ready(
+				function() {
+					var t = $("#tbl");
+					$("#output").html(
+							t.outerWidth().toString() + ", "
+									+ t.outerHeight().toString());
+
+					refresh();
+				});
+		function refresh() {
+			var table = $("#tbl")[0];
+			var headerRow = tbl.getElementsByTagName("thead")[0].rows[0];
+			var rightColumn = leftColumn + columnCount;
+
+			if (leftColumn <= 0) {
+				leftColumn = 0;
+			}
+
+			if (leftColumn >= headerRow.cells.length - 3) {
+				leftColumn--;
+			}
+			for ( var r = 0, rlen = table.rows.length; r < rlen; r++) {
+				for ( var c = 0, clen = headerRow.cells.length; c < clen; c++) {
+					table.rows[r].cells.style.display = ((leftColumn <= c && c < rightColumn) ? "table-cell"
+							: "none");
+				}
+			}
+		}
+		$("#navleft").click(function() {
+			leftColumn--;
+			alert("hey");
+			refresh();
+		});
+
+		$("#navright").click(function() {
+			leftColumn++;
+			refresh();
+		});
+	</script>
+
+</body>
+</html>

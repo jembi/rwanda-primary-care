@@ -1,3 +1,0 @@
-<table class="resultsTable  bigtext" style="background-color: #f0f0a0; padding:10px;">
-	<%@ include file="patientResults.jspf"%>		
-</table>
