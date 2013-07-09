@@ -17,95 +17,93 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.Verifies;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.rwandaprimarycare.PrimaryCareUtil;
 import org.openmrs.Patient;
 import java.util.List;
 
-
 public class PrimaryCareServiceTest extends BaseModuleContextSensitiveTest {
-    
-   
-    @Override
-    public Boolean useInMemoryDatabase(){
-        return true;
-    }
-    
-    @Before
+
+	@Override
+	public Boolean useInMemoryDatabase() {
+		return true;
+	}
+
+	@Before
 	public void runBeforeEachTest() throws Exception {
 		executeDataSet("src/test/resources/InitialData.xml");
 	}
-    
-//    public void runBeforeAllTests() throws Exception {
-//        executeDataSet("org/openmrs/module/rwandaprimarycare/extraPatients.xml");
-//    }
 
-    
-//    @Test
-//    public void testServiceLookup() throws Exception {
-//        Context.authenticate("admin", "test");
-//        PrimaryCareService pcs = PrimaryCareBusinessLogic.getService();
-//        List<String> ret = pcs.getPatientSearchList("Dave", PrimaryCareService.PatientSearchType.FANAME, 1);
-//        System.out.println(ret);
-//        Assert.assertTrue(ret.size() > 0);
-//        ret = pcs.getPatientSearchList("Dave", PrimaryCareService.PatientSearchType.RWNAME, 1);
-//        Assert.assertTrue(ret.size() > 0);
-//        System.out.println(ret);
-//    }
-    
-    
-//      REPLACED BY SOUNDEX LOOKUP    
-//    /**
-//     * assume registration.restrict... global property is set to true
-//     */
-   // @Test
-//    public void testServiceFind() throws Exception {
-//        Context.authenticate("admin", "test");
-//        PrimaryCareService pcs = PrimaryCareBusinessLogic.getService();
-//        
-//        //restrict by location gp
-//        List<Patient> pList = pcs.getPatients("dave", null, "M", Integer.valueOf(33).floatValue(), null, null, null, null, null, null, null, null, PrimaryCareUtil.getHealthCenterAttributeType(), Context.getLocationService().getLocation(18));
-//        System.out.println(pList.size());
-//        Assert.assertTrue(pList.size() > 0);
-        
-        //restrict by location gp
-//        pList = pcs.getPatients("dave", null, "M", Integer.valueOf(33).floatValue(), null, null, null, null, null, null, null, null, PrimaryCareUtil.getHealthCenterAttributeType(), Context.getLocationService().getLocation(17));
-//        System.out.println(pList.size());
-//        Assert.assertTrue(pList.size() == 0);
-//        
-//        //age
-//        pList = pcs.getPatients("dave", null, "M", Integer.valueOf(3).floatValue(), null, null, null, null, null, null, null, null, PrimaryCareUtil.getHealthCenterAttributeType(), Context.getLocationService().getLocation(18));
-//        System.out.println(pList.size());
-//        Assert.assertTrue(pList.size() == 0);
-//        
-//        //name switch
-//        pList = pcs.getPatients(null, "dave", "M", Integer.valueOf(33).floatValue(), null, null, null, null, null, null, null, null, PrimaryCareUtil.getHealthCenterAttributeType(), Context.getLocationService().getLocation(18));
-//        System.out.println(pList.size());
-//        Assert.assertTrue(pList.size() > 0);
-//        pList = pcs.getPatients("dave", "dave", "M", Integer.valueOf(33).floatValue(), null, null, null, null, null, null, null, null, PrimaryCareUtil.getHealthCenterAttributeType(), Context.getLocationService().getLocation(18));
-//        System.out.println(pList.size());
-//        Assert.assertTrue(pList.size() > 0);
-//        
-   // }
+	
 
-    @Test
-    public void testNationalIdentifierStuff() throws Exception {
-        String nationalIdLong = "1 1974 8 0006220 0 690108042008THOMAS                   David                    1624";
-        String nationalIdShort = "1 1974 8 0006220 0 69";
-        
-        Assert.assertTrue(nationalIdLong.length() == 85);
-        System.out.println(PrimaryCareUtil.getFamilyNameFromNationalId(nationalIdLong));
-        System.out.println(PrimaryCareUtil.getGivenNameFromNationalId(nationalIdLong));
-        System.out.println(PrimaryCareUtil.getDOBYearFromNationalId(nationalIdLong));
-        System.out.println(PrimaryCareUtil.getGenderFromNationalId(nationalIdLong));
-        
-        System.out.println(PrimaryCareUtil.getFamilyNameFromNationalId(nationalIdShort));
-        System.out.println(PrimaryCareUtil.getGivenNameFromNationalId(nationalIdShort));
-        System.out.println(PrimaryCareUtil.getDOBYearFromNationalId(nationalIdShort));
-        System.out.println(PrimaryCareUtil.getGenderFromNationalId(nationalIdShort));
-        
-    }    
-    
-    
-   
+	@Test
+	public void testNationalIdentifierStuff() throws Exception {
+		String nationalIdLong = "1 1974 8 0006220 0 690108042008THOMAS                   David                    1624";
+		String nationalIdShort = "1 1974 8 0006220 0 69";
+
+		Assert.assertTrue(nationalIdLong.length() == 85);
+		System.out.println(PrimaryCareUtil
+				.getFamilyNameFromNationalId(nationalIdLong));
+		System.out.println(PrimaryCareUtil
+				.getGivenNameFromNationalId(nationalIdLong));
+		System.out.println(PrimaryCareUtil
+				.getDOBYearFromNationalId(nationalIdLong));
+		System.out.println(PrimaryCareUtil
+				.getGenderFromNationalId(nationalIdLong));
+
+		System.out.println(PrimaryCareUtil
+				.getFamilyNameFromNationalId(nationalIdShort));
+		System.out.println(PrimaryCareUtil
+				.getGivenNameFromNationalId(nationalIdShort));
+		System.out.println(PrimaryCareUtil
+				.getDOBYearFromNationalId(nationalIdShort));
+		System.out.println(PrimaryCareUtil
+				.getGenderFromNationalId(nationalIdShort));
+
+	}
+
+	@Test
+	@Verifies(value = "should Get All Patients from database (", method = "getAllPatients(...)")
+	public void getAllPatients_shouldGetAllPatientsFromDatabase() {
+		int size = Context.getPatientService().getAllPatients().size();
+		System.out.println("The size of the dataset is >>>> " + size);
+		Assert.assertEquals(size, 6);
+	}
+
+	@Test
+	@Verifies(value = "Should Get All Patients from database that match the demographic search criteria (", method = "PrimaryCareBusinessLogic.getService().getPatients(...)")
+	public void getPatientsByName() {
+		
+		
+		Patient pt = Context.getPatientService().getPatientByUuid("256ccf6d-6b41-455c-9be2-51ff4386ae76");
+		
+		
+		Float age = (float)pt.getAge();
+		List<Patient> patients = PrimaryCareBusinessLogic.getService()
+				.getPatients("", "Doe", "M", age, "", "", "", "", "", "", "",
+						"", null, null);
+		int size = Context.getPatientService().getAllPatients().size();
+		
+		System.out.println("The size of the dataset is >>>> " + size
+				+ " Doe's >>. " + patients.size());
+		Assert.assertEquals(patients.size(), 2);
+		for (Patient p : patients) {
+			System.out.println(p.getFamilyName()+" - "+p.getGivenName()+" - "+p.getMiddleName());
+			Assert.assertEquals(p.getFamilyName(), "Doe");
+			Assert.assertEquals(p.getGender(), "M");
+			Assert.assertTrue(p.getAge() == age.intValue()  || p.getAge()<=(age.intValue() + 5) || p.getAge() >= (age.intValue() -5));
+		}
+	}
+	
+	@Test
+	@Verifies(value = "Should Get A unique Patient from database that matches the Identifier search value (", method = "PrimaryCareBusinessLogic.findPatientsByIdentifier(...)")
+	public void getPatientsById() {
+		
+		List<Patient> patients = PrimaryCareBusinessLogic.findPatientsByIdentifier("12345", null);
+		System.out.println("The size of the dataset is >>>> " + patients.size());
+		Assert.assertEquals(patients.size(), 1);
+		
+	}
+
 }

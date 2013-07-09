@@ -28,7 +28,7 @@ public class PrimaryCareConstants {
     public static Privilege PRINT_BARCODE_OFFLINE_PRIVILEGE;
     public static Privilege GENERATE_BULK_PRIMARY_CARE_IDS;
     public static EncounterRole PRIMARY_CARE_ENCOUNTER_ROLE = Context.getEncounterService().getEncounterRole(1);
-    public static int ageRange = 10;
+    public static int ageRange = 5;
     public static final String GLOBAL_PROPERTY_PRIMARY_IDENTIFIER_TYPE = "registration.primaryIdentifierType";
     public static final String GLOBAL_PROPERTY_OTHER_IDENTIFIER_TYPES = "registration.otherIdentifierTypes";
     public static final String GLOBAL_PROPERTY_BAR_CODE_COUNT = "registration.barCodeCount";
