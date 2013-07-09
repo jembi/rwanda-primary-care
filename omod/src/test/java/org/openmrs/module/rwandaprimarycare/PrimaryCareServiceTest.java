@@ -14,9 +14,14 @@
 package org.openmrs.module.rwandaprimarycare;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.rwandaprimarycare.PrimaryCareUtil;
+import org.openmrs.Patient;
+import java.util.List;
+
 
 public class PrimaryCareServiceTest extends BaseModuleContextSensitiveTest {
     
@@ -25,6 +30,11 @@ public class PrimaryCareServiceTest extends BaseModuleContextSensitiveTest {
     public Boolean useInMemoryDatabase(){
         return true;
     }
+    
+    @Before
+	public void runBeforeEachTest() throws Exception {
+		executeDataSet("src/test/resources/InitialData.xml");
+	}
     
 //    public void runBeforeAllTests() throws Exception {
 //        executeDataSet("org/openmrs/module/rwandaprimarycare/extraPatients.xml");
@@ -48,7 +58,7 @@ public class PrimaryCareServiceTest extends BaseModuleContextSensitiveTest {
 //    /**
 //     * assume registration.restrict... global property is set to true
 //     */
-//    @Test
+   // @Test
 //    public void testServiceFind() throws Exception {
 //        Context.authenticate("admin", "test");
 //        PrimaryCareService pcs = PrimaryCareBusinessLogic.getService();
@@ -57,8 +67,8 @@ public class PrimaryCareServiceTest extends BaseModuleContextSensitiveTest {
 //        List<Patient> pList = pcs.getPatients("dave", null, "M", Integer.valueOf(33).floatValue(), null, null, null, null, null, null, null, null, PrimaryCareUtil.getHealthCenterAttributeType(), Context.getLocationService().getLocation(18));
 //        System.out.println(pList.size());
 //        Assert.assertTrue(pList.size() > 0);
-//        
-//        //restrict by location gp
+        
+        //restrict by location gp
 //        pList = pcs.getPatients("dave", null, "M", Integer.valueOf(33).floatValue(), null, null, null, null, null, null, null, null, PrimaryCareUtil.getHealthCenterAttributeType(), Context.getLocationService().getLocation(17));
 //        System.out.println(pList.size());
 //        Assert.assertTrue(pList.size() == 0);
@@ -76,7 +86,7 @@ public class PrimaryCareServiceTest extends BaseModuleContextSensitiveTest {
 //        System.out.println(pList.size());
 //        Assert.assertTrue(pList.size() > 0);
 //        
-//    }
+   // }
 
     @Test
     public void testNationalIdentifierStuff() throws Exception {

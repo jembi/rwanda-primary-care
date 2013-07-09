@@ -61,6 +61,11 @@
 			<artifactId>rheapocadapter-api</artifactId>
 			<version>0.5.1-SNAPSHOT</version>
 		</dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>mohappointment-api</artifactId>
+            <version>0.1.9-SNAPSHOT</version>
+        </dependency>
 	</dependencies>
 
 </project>
